@@ -90,6 +90,11 @@ static NSString *const kGreetingsExistingUserText = @"Hi %@!";
     [self updateControls:YES];
 }
 
+- (void)authenticationFailed
+{
+    [self updateControls:NO];
+}
+
 - (void)requestFailed
 {
     [self updateControls:NO];

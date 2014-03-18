@@ -10,6 +10,7 @@
 
 
 @class ProfileData;
+@class ApiAccessData;
 
 @interface ProfileDataJSONParser : NSObject
 
@@ -17,5 +18,6 @@
 @property (nonatomic, retain) NSError *parsingError;
 
 - (ProfileData *)parse:(NSData *)data;
+- (ApiAccessData *)parseApiData:(NSData *)data;
 
 @end

@@ -8,12 +8,49 @@
 
 #import "ProfileDataJSONParser.h"
 
+#import "ApiAccessData.h"
 #import "ProfileData.h"
 
 
 @implementation ProfileDataJSONParser
 
 - (ProfileData *)parse:(NSData *)data
+{
+    NSDictionary *profileDictionary = [self dictionaryFromData:data];
+    if (profileDictionary == nil)
+    {
+        return nil;
+    }
+
+    ProfileData *profileData = [[[ProfileData alloc] init] autorelease];
+    profileData.userName = [profileDictionary valueForKey:@"username"];
+    profileData.firstName = [profileDictionary valueForKey:@"first_name"];
+    profileData.lastName = [profileDictionary valueForKey:@"last_name"];
+    profileData.email = [profileDictionary valueForKey:@"email"];
+    return profileData;
+}
+
+- (ApiAccessData *)parseApiData:(NSData *)data
+{
+    NSDictionary *profileDictionary = [self dictionaryFromData:data];
+    if (profileDictionary == nil)
+    {
+        return nil;
+    }
+
+    ApiAccessData *apiData = nil;
+    NSString *userName = [profileDictionary valueForKey:@"username"];
+    NSString *accessToken = [profileDictionary valueForKey:@"access_token"];
+    if (userName != nil && accessToken != nil)
+    {
+        apiData = [[ApiAccessData alloc] init];
+        apiData.userName = userName;
+        apiData.accessToken = accessToken;
+    }
+    return apiData;
+}
+
+- (NSDictionary *)dictionaryFromData:(NSData *)data
 {
     NSError *parsingError = nil;
     NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data
@@ -24,7 +61,7 @@
         self.parsingError = [parsingError retain];
         return nil;
     }
-
+    
     NSString *errorValue = [dataDictionary valueForKey:@"error"];
     if (errorValue != nil)
     {
@@ -36,14 +73,7 @@
     {
         profileDictionary = dataDictionary;
     }
-    
-    ProfileData *profileData = [[[ProfileData alloc] init] autorelease];
-    profileData.userName = [profileDictionary valueForKey:@"username"];
-    profileData.firstName = [profileDictionary valueForKey:@"first_name"];
-    profileData.lastName = [profileDictionary valueForKey:@"last_name"];
-    profileData.email = [profileDictionary valueForKey:@"email"];
-    profileData.accessToken = [profileDictionary valueForKey:@"access_token"];
-    return profileData;
+    return profileDictionary;
 }
 
 @end

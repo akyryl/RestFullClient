@@ -28,6 +28,8 @@
 		3EBAEB7D18D58F4C00B3C9F1 /* ProfileDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBAEB7C18D58F4C00B3C9F1 /* ProfileDataSource.m */; };
 		3EBAEB8018D5957D00B3C9F1 /* HTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBAEB7F18D5957D00B3C9F1 /* HTTPClient.m */; };
 		3EBAEB8A18D5CC2200B3C9F1 /* ProfileDataJSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBAEB8918D5CC2200B3C9F1 /* ProfileDataJSONParser.m */; };
+		3EBAEBA018D82F6700B3C9F1 /* SecureStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBAEB9F18D82F6700B3C9F1 /* SecureStorage.m */; };
+		3EBAEBA318D857F300B3C9F1 /* ApiAccessData.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBAEBA218D857F300B3C9F1 /* ApiAccessData.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +77,10 @@
 		3EBAEB8418D5B49D00B3C9F1 /* ProfileDataSourceProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileDataSourceProtocol.h; sourceTree = "<group>"; };
 		3EBAEB8818D5CC2200B3C9F1 /* ProfileDataJSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileDataJSONParser.h; sourceTree = "<group>"; };
 		3EBAEB8918D5CC2200B3C9F1 /* ProfileDataJSONParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileDataJSONParser.m; sourceTree = "<group>"; };
+		3EBAEB9E18D82F6700B3C9F1 /* SecureStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecureStorage.h; sourceTree = "<group>"; };
+		3EBAEB9F18D82F6700B3C9F1 /* SecureStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecureStorage.m; sourceTree = "<group>"; };
+		3EBAEBA118D857F300B3C9F1 /* ApiAccessData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiAccessData.h; sourceTree = "<group>"; };
+		3EBAEBA218D857F300B3C9F1 /* ApiAccessData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApiAccessData.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +162,10 @@
 				3EBAEB8418D5B49D00B3C9F1 /* ProfileDataSourceProtocol.h */,
 				3EBAEB8818D5CC2200B3C9F1 /* ProfileDataJSONParser.h */,
 				3EBAEB8918D5CC2200B3C9F1 /* ProfileDataJSONParser.m */,
+				3EBAEB9E18D82F6700B3C9F1 /* SecureStorage.h */,
+				3EBAEB9F18D82F6700B3C9F1 /* SecureStorage.m */,
+				3EBAEBA118D857F300B3C9F1 /* ApiAccessData.h */,
+				3EBAEBA218D857F300B3C9F1 /* ApiAccessData.m */,
 			);
 			path = RestFullClient;
 			sourceTree = "<group>";
@@ -290,11 +300,13 @@
 				3EBAEB7718D4B38B00B3C9F1 /* EditProfileViewController.m in Sources */,
 				3EBAEB8018D5957D00B3C9F1 /* HTTPClient.m in Sources */,
 				3EBAEB7D18D58F4C00B3C9F1 /* ProfileDataSource.m in Sources */,
+				3EBAEBA318D857F300B3C9F1 /* ApiAccessData.m in Sources */,
 				3EBAEB7A18D58C7E00B3C9F1 /* ProfileData.m in Sources */,
 				3EBAEB7118D4ACB300B3C9F1 /* RegistrationViewController.m in Sources */,
 				3EBAEB4B18D4ABFB00B3C9F1 /* AppDelegate.m in Sources */,
 				3EBAEB8A18D5CC2200B3C9F1 /* ProfileDataJSONParser.m in Sources */,
 				3EBAEB7418D4ACEB00B3C9F1 /* UserHomeViewController.m in Sources */,
+				3EBAEBA018D82F6700B3C9F1 /* SecureStorage.m in Sources */,
 				3EBAEB4718D4ABFB00B3C9F1 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -500,6 +512,7 @@
 				3EBAEB6B18D4ABFB00B3C9F1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3EBAEB6C18D4ABFB00B3C9F1 /* Build configuration list for PBXNativeTarget "RestFullClientTests" */ = {
 			isa = XCConfigurationList;
@@ -508,6 +521,7 @@
 				3EBAEB6E18D4ABFB00B3C9F1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

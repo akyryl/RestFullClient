@@ -12,9 +12,10 @@
 
 @optional
 - (void)authenticationSuccessful;
-- (void)requestFailed;
+- (void)authenticationFailed;
 - (void)newProfileAdded;
 - (void)profileUpdated;
 - (void)profileDeleted;
+- (void)requestFailed;
 
 @end
