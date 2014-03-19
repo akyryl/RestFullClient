@@ -60,7 +60,7 @@ static NSString *const kCaptionLabelText = @"%@'s home page";
 - (void)updateControls
 {
     NSString *captionText = self.profileDataSource.isAuthenticated
-        ? [NSString stringWithFormat:kCaptionLabelText, self.profileDataSource.profileData.userName]
+        ? [NSString stringWithFormat:kCaptionLabelText, self.profileDataSource.userName]
         : @"";
     captionLable.text = captionText;
 }

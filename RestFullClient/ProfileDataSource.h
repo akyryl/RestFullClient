@@ -18,11 +18,12 @@
 }
 
 @property (nonatomic, retain) ProfileData *profileData;
+@property (nonatomic, readonly) NSString *userName;
 @property (readonly) BOOL isAuthenticated;
 
-- (BOOL)authenticate:(id <ProfileDataSourceProtocol>) delegate;
-- (BOOL)addProfile:(ProfileData *)profileData delegate:(id <ProfileDataSourceProtocol>) delegate;
-- (BOOL)updateProfile:(ProfileData *)profileData delegate:(id <ProfileDataSourceProtocol>) delegate;
-- (BOOL)deleteProfile:(id <ProfileDataSourceProtocol>) delegate;
+- (void)authenticate:(id <ProfileDataSourceProtocol>) delegate;
+- (void)addProfile:(NSString *)userName profileData:(ProfileData *)profileData delegate:(id <ProfileDataSourceProtocol>) delegate;
+- (void)updateProfile:(ProfileData *)profileData delegate:(id <ProfileDataSourceProtocol>) delegate;
+- (void)deleteProfile:(id <ProfileDataSourceProtocol>) delegate;
 
 @end

@@ -59,12 +59,12 @@
     activityIndicator.hidden = NO;
 
     ProfileData *profileData = [[ProfileData alloc] init];
-    profileData.userName = userNameTextField.text;
     profileData.firstName = firstNameTextField.text;
     profileData.lastName = lastNameTextField.text;
     profileData.email = emailTextField.text;
     
-    [self.profileDataSource addProfile:profileData delegate:self];
+    [self.profileDataSource addProfile:userNameTextField.text profileData:profileData delegate:self];
+    [profileData release];
 }
 
 - (IBAction)cancelButtonTapped:(UIButton *)button

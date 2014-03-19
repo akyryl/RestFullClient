@@ -11,51 +11,80 @@
 #import <Security/Security.h>
 
 
-static NSString *const kServiceName = @"RESTFullClient";
+@interface SecureStorage ()
+
+@property (nonatomic, copy) NSString *serviceName;
+
+@end
+
 
 @implementation SecureStorage
 
-- (NSMutableDictionary *)newSearchDictionary:(NSString *)identifier
+- (id)initWithServiceName:(NSString *)serviceName
 {
-    NSMutableDictionary *searchDictionary = [[NSMutableDictionary alloc] init];
-    
-    [searchDictionary setObject:(id)kSecClassGenericPassword forKey:(id)kSecClass];
-    
-    NSData *encodedIdentifier = [identifier dataUsingEncoding:NSUTF8StringEncoding];
-    [searchDictionary setObject:encodedIdentifier forKey:(id)kSecAttrGeneric];
-    [searchDictionary setObject:encodedIdentifier forKey:(id)kSecAttrAccount];
-    [searchDictionary setObject:kServiceName forKey:(id)kSecAttrService];
-
-    return searchDictionary;
+    self = [super init];
+    if (self != nil)
+    {
+        _serviceName = [serviceName copy];
+    }
+    return self;
 }
 
-- (NSData *)searchKeychainCopyMatching:(NSString *)identifier
+- (void)dealloc
 {
-    NSMutableDictionary *searchDictionary = [self newSearchDictionary:identifier];
+    [_serviceName release];
     
-    // Add search attributes
+    [super dealloc];
+}
+
+- (NSData *)searchKeychainValue:(NSString *)identifier
+{
+    NSMutableDictionary *searchDictionary = [[NSMutableDictionary alloc] init];
+    [self prepareSearchDictionary:searchDictionary identifier:identifier];
+    
     [searchDictionary setObject:(id)kSecMatchLimitOne forKey:(id)kSecMatchLimit];
-    
-    // Add search return types
     [searchDictionary setObject:(id)kCFBooleanTrue forKey:(id)kSecReturnData];
     
     NSData *result = nil;
-    OSStatus status = SecItemCopyMatching((CFDictionaryRef)searchDictionary,
-                                          (CFTypeRef *)&result);
+
+    OSStatus status = SecItemCopyMatching((CFDictionaryRef)searchDictionary, (CFTypeRef *)&result);
+    if (status != errSecSuccess)
+    {
+        NSLog(@"Value %@ not found in keychain", identifier);
+    }
     
     [searchDictionary release];
     return result;
 }
 
-- (BOOL)saveAuthenticationToken:(NSString *)token identifier:(NSString *)identifier
+- (void)prepareSearchDictionary:(NSMutableDictionary *)dict identifier:(NSString *)identifier
 {
-    NSMutableDictionary *dictionary = [self newSearchDictionary:identifier];
+    [dict setObject:(id)kSecClassGenericPassword forKey:(id)kSecClass];
+    
+    NSData *encodedIdentifier = [identifier dataUsingEncoding:NSUTF8StringEncoding];
+    [dict setObject:encodedIdentifier forKey:(id)kSecAttrGeneric];
+    [dict setObject:encodedIdentifier forKey:(id)kSecAttrAccount];
+    [dict setObject:self.serviceName forKey:(id)kSecAttrService];
+}
+
+- (void)deleteKeychainValue:(NSString *)identifier
+{
+    NSMutableDictionary *searchDictionary = [[NSMutableDictionary alloc] init];
+    [self prepareSearchDictionary:searchDictionary identifier:identifier];
+    SecItemDelete((CFDictionaryRef)searchDictionary);
+    [searchDictionary release];
+}
+
+- (BOOL)saveKeychainValue:(NSString *)token identifier:(NSString *)identifier
+{
+    NSMutableDictionary *searchDictionary = [[NSMutableDictionary alloc] init];
+    [self prepareSearchDictionary:searchDictionary identifier:identifier];
     
     NSData *tokenData = [token dataUsingEncoding:NSUTF8StringEncoding];
-    [dictionary setObject:tokenData forKey:(id)kSecValueData];
+    [searchDictionary setObject:tokenData forKey:(id)kSecValueData];
     
-    OSStatus status = SecItemAdd((CFDictionaryRef)dictionary, NULL);
-    [dictionary release];
+    OSStatus status = SecItemAdd((CFDictionaryRef)searchDictionary, NULL);
+    [searchDictionary release];
     
     if (status == errSecSuccess)
     {

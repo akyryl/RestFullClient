@@ -10,7 +10,9 @@
 
 @interface SecureStorage : NSObject
 
-- (BOOL)saveAuthenticationToken:(NSString *)token identifier:(NSString *)identifier;
-- (NSData *)searchKeychainCopyMatching:(NSString *)identifier;
+- (id)initWithServiceName:(NSString *)serviceName;
+- (BOOL)saveKeychainValue:(NSString *)token identifier:(NSString *)identifier;
+- (NSData *)searchKeychainValue:(NSString *)identifier;
+- (void)deleteKeychainValue:(NSString *)identifier;
 
 @end

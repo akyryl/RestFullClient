@@ -23,10 +23,6 @@
 
 - (void)updateWithData:(ProfileData *)profileData
 {
-    if (![profileData.userName isEqualToString:@"(null)"])
-    {
-        self.userName = profileData.userName;
-    }
     if (![profileData.firstName isEqualToString:@"(null)"])
     {
         self.firstName = profileData.firstName;

@@ -27,7 +27,7 @@
 		3EBAEB7A18D58C7E00B3C9F1 /* ProfileData.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBAEB7918D58C7E00B3C9F1 /* ProfileData.m */; };
 		3EBAEB7D18D58F4C00B3C9F1 /* ProfileDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBAEB7C18D58F4C00B3C9F1 /* ProfileDataSource.m */; };
 		3EBAEB8018D5957D00B3C9F1 /* HTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBAEB7F18D5957D00B3C9F1 /* HTTPClient.m */; };
-		3EBAEB8A18D5CC2200B3C9F1 /* ProfileDataJSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBAEB8918D5CC2200B3C9F1 /* ProfileDataJSONParser.m */; };
+		3EBAEB8A18D5CC2200B3C9F1 /* UserDataJSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBAEB8918D5CC2200B3C9F1 /* UserDataJSONParser.m */; };
 		3EBAEBA018D82F6700B3C9F1 /* SecureStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBAEB9F18D82F6700B3C9F1 /* SecureStorage.m */; };
 		3EBAEBA318D857F300B3C9F1 /* ApiAccessData.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBAEBA218D857F300B3C9F1 /* ApiAccessData.m */; };
 /* End PBXBuildFile section */
@@ -75,8 +75,8 @@
 		3EBAEB7E18D5957D00B3C9F1 /* HTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPClient.h; sourceTree = "<group>"; };
 		3EBAEB7F18D5957D00B3C9F1 /* HTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPClient.m; sourceTree = "<group>"; };
 		3EBAEB8418D5B49D00B3C9F1 /* ProfileDataSourceProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileDataSourceProtocol.h; sourceTree = "<group>"; };
-		3EBAEB8818D5CC2200B3C9F1 /* ProfileDataJSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileDataJSONParser.h; sourceTree = "<group>"; };
-		3EBAEB8918D5CC2200B3C9F1 /* ProfileDataJSONParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileDataJSONParser.m; sourceTree = "<group>"; };
+		3EBAEB8818D5CC2200B3C9F1 /* UserDataJSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDataJSONParser.h; sourceTree = "<group>"; };
+		3EBAEB8918D5CC2200B3C9F1 /* UserDataJSONParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDataJSONParser.m; sourceTree = "<group>"; };
 		3EBAEB9E18D82F6700B3C9F1 /* SecureStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecureStorage.h; sourceTree = "<group>"; };
 		3EBAEB9F18D82F6700B3C9F1 /* SecureStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecureStorage.m; sourceTree = "<group>"; };
 		3EBAEBA118D857F300B3C9F1 /* ApiAccessData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApiAccessData.h; sourceTree = "<group>"; };
@@ -140,32 +140,14 @@
 		3EBAEB4018D4ABFB00B3C9F1 /* RestFullClient */ = {
 			isa = PBXGroup;
 			children = (
+				3EBAEBBB18DA2D8E00B3C9F1 /* Data Classes */,
+				3EBAEBBC18DA2E6600B3C9F1 /* Helpers */,
+				3EBAEBBA18DA2D7200B3C9F1 /* ViewControllers */,
 				3EBAEB4118D4ABFB00B3C9F1 /* Supporting Files */,
 				3EBAEB5218D4ABFB00B3C9F1 /* Images.xcassets */,
 				3EBAEB4918D4ABFB00B3C9F1 /* AppDelegate.h */,
 				3EBAEB4A18D4ABFB00B3C9F1 /* AppDelegate.m */,
 				3EBAEB4C18D4ABFB00B3C9F1 /* Main.storyboard */,
-				3EBAEB4F18D4ABFB00B3C9F1 /* ViewController.h */,
-				3EBAEB5018D4ABFB00B3C9F1 /* ViewController.m */,
-				3EBAEB7B18D58F4C00B3C9F1 /* ProfileDataSource.h */,
-				3EBAEB7C18D58F4C00B3C9F1 /* ProfileDataSource.m */,
-				3EBAEB6F18D4ACB300B3C9F1 /* RegistrationViewController.h */,
-				3EBAEB7018D4ACB300B3C9F1 /* RegistrationViewController.m */,
-				3EBAEB7218D4ACEB00B3C9F1 /* UserHomeViewController.h */,
-				3EBAEB7318D4ACEB00B3C9F1 /* UserHomeViewController.m */,
-				3EBAEB7518D4B38B00B3C9F1 /* EditProfileViewController.h */,
-				3EBAEB7618D4B38B00B3C9F1 /* EditProfileViewController.m */,
-				3EBAEB7818D58C7E00B3C9F1 /* ProfileData.h */,
-				3EBAEB7918D58C7E00B3C9F1 /* ProfileData.m */,
-				3EBAEB7E18D5957D00B3C9F1 /* HTTPClient.h */,
-				3EBAEB7F18D5957D00B3C9F1 /* HTTPClient.m */,
-				3EBAEB8418D5B49D00B3C9F1 /* ProfileDataSourceProtocol.h */,
-				3EBAEB8818D5CC2200B3C9F1 /* ProfileDataJSONParser.h */,
-				3EBAEB8918D5CC2200B3C9F1 /* ProfileDataJSONParser.m */,
-				3EBAEB9E18D82F6700B3C9F1 /* SecureStorage.h */,
-				3EBAEB9F18D82F6700B3C9F1 /* SecureStorage.m */,
-				3EBAEBA118D857F300B3C9F1 /* ApiAccessData.h */,
-				3EBAEBA218D857F300B3C9F1 /* ApiAccessData.m */,
 			);
 			path = RestFullClient;
 			sourceTree = "<group>";
@@ -197,6 +179,48 @@
 				3EBAEB6218D4ABFB00B3C9F1 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3EBAEBBA18DA2D7200B3C9F1 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				3EBAEB7518D4B38B00B3C9F1 /* EditProfileViewController.h */,
+				3EBAEB7618D4B38B00B3C9F1 /* EditProfileViewController.m */,
+				3EBAEB6F18D4ACB300B3C9F1 /* RegistrationViewController.h */,
+				3EBAEB7018D4ACB300B3C9F1 /* RegistrationViewController.m */,
+				3EBAEB7218D4ACEB00B3C9F1 /* UserHomeViewController.h */,
+				3EBAEB7318D4ACEB00B3C9F1 /* UserHomeViewController.m */,
+				3EBAEB4F18D4ABFB00B3C9F1 /* ViewController.h */,
+				3EBAEB5018D4ABFB00B3C9F1 /* ViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		3EBAEBBB18DA2D8E00B3C9F1 /* Data Classes */ = {
+			isa = PBXGroup;
+			children = (
+				3EBAEBA118D857F300B3C9F1 /* ApiAccessData.h */,
+				3EBAEBA218D857F300B3C9F1 /* ApiAccessData.m */,
+				3EBAEB7818D58C7E00B3C9F1 /* ProfileData.h */,
+				3EBAEB7918D58C7E00B3C9F1 /* ProfileData.m */,
+				3EBAEB7B18D58F4C00B3C9F1 /* ProfileDataSource.h */,
+				3EBAEB7C18D58F4C00B3C9F1 /* ProfileDataSource.m */,
+				3EBAEB8418D5B49D00B3C9F1 /* ProfileDataSourceProtocol.h */,
+				3EBAEB8818D5CC2200B3C9F1 /* UserDataJSONParser.h */,
+				3EBAEB8918D5CC2200B3C9F1 /* UserDataJSONParser.m */,
+			);
+			name = "Data Classes";
+			sourceTree = "<group>";
+		};
+		3EBAEBBC18DA2E6600B3C9F1 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				3EBAEB7E18D5957D00B3C9F1 /* HTTPClient.h */,
+				3EBAEB7F18D5957D00B3C9F1 /* HTTPClient.m */,
+				3EBAEB9E18D82F6700B3C9F1 /* SecureStorage.h */,
+				3EBAEB9F18D82F6700B3C9F1 /* SecureStorage.m */,
+			);
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -304,7 +328,7 @@
 				3EBAEB7A18D58C7E00B3C9F1 /* ProfileData.m in Sources */,
 				3EBAEB7118D4ACB300B3C9F1 /* RegistrationViewController.m in Sources */,
 				3EBAEB4B18D4ABFB00B3C9F1 /* AppDelegate.m in Sources */,
-				3EBAEB8A18D5CC2200B3C9F1 /* ProfileDataJSONParser.m in Sources */,
+				3EBAEB8A18D5CC2200B3C9F1 /* UserDataJSONParser.m in Sources */,
 				3EBAEB7418D4ACEB00B3C9F1 /* UserHomeViewController.m in Sources */,
 				3EBAEBA018D82F6700B3C9F1 /* SecureStorage.m in Sources */,
 				3EBAEB4718D4ABFB00B3C9F1 /* main.m in Sources */,

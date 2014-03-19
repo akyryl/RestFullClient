@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 Anatolii. All rights reserved.
 //
 
-#import "ProfileDataJSONParser.h"
+#import "UserDataJSONParser.h"
 
 #import "ApiAccessData.h"
 #import "ProfileData.h"
 
 
-@implementation ProfileDataJSONParser
+@implementation UserDataJSONParser
 
 - (ProfileData *)parse:(NSData *)data
 {
@@ -23,7 +23,6 @@
     }
 
     ProfileData *profileData = [[[ProfileData alloc] init] autorelease];
-    profileData.userName = [profileDictionary valueForKey:@"username"];
     profileData.firstName = [profileDictionary valueForKey:@"first_name"];
     profileData.lastName = [profileDictionary valueForKey:@"last_name"];
     profileData.email = [profileDictionary valueForKey:@"email"];

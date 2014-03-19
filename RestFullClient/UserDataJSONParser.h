@@ -12,7 +12,7 @@
 @class ProfileData;
 @class ApiAccessData;
 
-@interface ProfileDataJSONParser : NSObject
+@interface UserDataJSONParser : NSObject
 
 @property (nonatomic, copy) NSString *responseErrorString;
 @property (nonatomic, retain) NSError *parsingError;

@@ -11,10 +11,13 @@
 #import "ApiAccessData.h"
 #import "HTTPClient.h"
 #import "ProfileData.h"
-#import "ProfileDataJSONParser.h"
+#import "UserDataJSONParser.h"
 
 
 static NSString *const kBaseURL = @"http://localhost:5000/mymusic/api/v1.0/users/";
+static NSString *const kApiAccessTokenKey = @"api_access_token";
+static NSString *const kApiUserNameKey = @"api_username";
+
 static NSString *const kCreateProfileTemplate = @"{\"username\":\"%@\",\"email\":\"%@\",\"last_name\":\"%@\",\"first_name\":\"%@\"}";
 static NSString *const kUpdateProfileTemplate = @"{\"email\":\"%@\",\"last_name\":\"%@\",\"first_name\":\"%@\"}";
 
@@ -24,7 +27,7 @@ static NSString *const kUpdateProfileTemplate = @"{\"email\":\"%@\",\"last_name\
 @property (nonatomic, retain) NSURLConnection *connection;
 @property (nonatomic, retain) ApiAccessData *apiAccessData;
 @property (nonatomic, retain) HTTPClient *httpClient;
-@property (nonatomic, retain) ProfileDataJSONParser *parser;
+@property (nonatomic, retain) UserDataJSONParser *parser;
 
 @end;
 
@@ -38,7 +41,7 @@ static NSString *const kUpdateProfileTemplate = @"{\"email\":\"%@\",\"last_name\
     {
         _apiAccessData = [[ApiAccessData alloc] init];
         _httpClient = [[HTTPClient alloc] initBaseURL:[NSURL URLWithString:kBaseURL]];
-        _parser = [[ProfileDataJSONParser alloc] init];
+        _parser = [[UserDataJSONParser alloc] init];
     }
     return self;
 }
@@ -46,6 +49,7 @@ static NSString *const kUpdateProfileTemplate = @"{\"email\":\"%@\",\"last_name\
 - (void)dealloc
 {
     [_parser release];
+    [_profileData release];
     [_httpClient release];
     [_apiAccessData release];
     [super dealloc];
@@ -53,32 +57,28 @@ static NSString *const kUpdateProfileTemplate = @"{\"email\":\"%@\",\"last_name\
 
 - (BOOL)isAuthenticated
 {
-    // TODO:
-    return self.profileData != nil;
-
-    // TODO: check if it is working
-    // return self.apiAccessData.accessToken != nil &&  self.apiAccessData.userName != nil;
-
+    return self.apiAccessData.accessToken != nil &&  self.apiAccessData.userName != nil;
 }
 
-- (BOOL)authenticate:(id <ProfileDataSourceProtocol>) delegate
+- (NSString *)userName
 {
-    // use isAuthenticated here
-    NSString *apiAccessToken = self.apiAccessData.accessToken;
-    NSString *apiUserName = self.apiAccessData.userName;
-    if (apiAccessToken == nil || apiUserName == nil)
+    return self.apiAccessData.userName;
+}
+
+- (void)authenticate:(id <ProfileDataSourceProtocol>) delegate
+{
+    if (![self isAuthenticated])
     {
         [delegate authenticationFailed];
-        return YES;
+        return;
     }
 
-    NSDictionary *headerParameters = @{@"api_access_token":apiAccessToken,
-                                       @"api_username":apiUserName};
+    NSDictionary *headerParameters = @{kApiAccessTokenKey:self.apiAccessData.accessToken,
+                                       kApiUserNameKey:self.apiAccessData.userName};
     NSURLRequest *request = [self.httpClient requestWithMethod:GET
                                                           path:kBaseURL
                                                     parameters:nil
                                               headerParameters:headerParameters];
-    //[NSURLConnection connectionWithRequest:request delegate:self];
     
     [NSURLConnection sendAsynchronousRequest:request
                                        queue:[NSOperationQueue mainQueue]
@@ -106,13 +106,11 @@ static NSString *const kUpdateProfileTemplate = @"{\"email\":\"%@\",\"last_name\
             [delegate requestFailed];
         }
     }];
-    return YES;
 }
 
-- (BOOL)addProfile:(ProfileData *)profileData delegate:(id <ProfileDataSourceProtocol>) delegate
+- (void)addProfile:(NSString *)userName profileData:(ProfileData *)profileData delegate:(id <ProfileDataSourceProtocol>) delegate
 {
-    NSString *parameters = [NSString stringWithFormat:kCreateProfileTemplate, profileData.userName, profileData.email, profileData.lastName, profileData.firstName];
-    
+    NSString *parameters = [NSString stringWithFormat:kCreateProfileTemplate, userName, profileData.email, profileData.lastName, profileData.firstName];
     NSURLRequest *request = [self.httpClient requestWithMethod:POST
                                                           path:kBaseURL
                                                     parameters:parameters
@@ -147,15 +145,13 @@ static NSString *const kUpdateProfileTemplate = @"{\"email\":\"%@\",\"last_name\
             [delegate requestFailed];
         }
     }];
-
-    return YES;
 }
 
-- (BOOL)updateProfile:(ProfileData *)profileData delegate:(id <ProfileDataSourceProtocol>) delegate
+- (void)updateProfile:(ProfileData *)profileData delegate:(id <ProfileDataSourceProtocol>) delegate
 {
     NSString *parameters = [NSString stringWithFormat:kUpdateProfileTemplate, profileData.email, profileData.lastName, profileData.firstName];
-    NSDictionary *headerParameters = @{@"api_access_token":self.apiAccessData.accessToken,
-                                       @"api_username":self.apiAccessData.userName};
+    NSDictionary *headerParameters = @{kApiAccessTokenKey:self.apiAccessData.accessToken,
+                                       kApiUserNameKey:self.apiAccessData.userName};
 
 
     NSURLRequest *request = [self.httpClient requestWithMethod:PUT
@@ -190,13 +186,12 @@ static NSString *const kUpdateProfileTemplate = @"{\"email\":\"%@\",\"last_name\
             [delegate requestFailed];
         }
     }];
-    return YES;
 }
 
-- (BOOL)deleteProfile:(id <ProfileDataSourceProtocol>) delegate
+- (void)deleteProfile:(id <ProfileDataSourceProtocol>) delegate
 {
-    NSDictionary *headerParameters = @{@"api_access_token":self.apiAccessData.accessToken,
-                                       @"api_username":self.apiAccessData.userName};
+    NSDictionary *headerParameters = @{kApiAccessTokenKey:self.apiAccessData.accessToken,
+                                       kApiUserNameKey:self.apiAccessData.userName};
     NSURLRequest *request = [self.httpClient requestWithMethod:DELETE
                                                           path:kBaseURL
                                                     parameters:nil
@@ -210,6 +205,7 @@ static NSString *const kUpdateProfileTemplate = @"{\"email\":\"%@\",\"last_name\
          if ([data length] > 0 && error == nil)
          {
              self.profileData = nil;
+             [self.apiAccessData cleanData];
              SEL selector = @selector(profileDeleted);
              if ([delegate respondsToSelector:selector])
              {
@@ -221,28 +217,6 @@ static NSString *const kUpdateProfileTemplate = @"{\"email\":\"%@\",\"last_name\
              [delegate requestFailed];
          }
      }];
-    return YES;
 }
-
-/*- (void)connection:(NSURLConnection*)connection didReceiveResponse:(NSURLResponse *)response
-{
-    //[self.apiReturnXMLData setLength:0];
-    
-}
-- (void)connection:(NSURLConnection*)connection didReceiveData:(NSData*)data
-{
-    //[self.apiReturnXMLData appendData:data];
-    NSMutableData *d = [NSMutableData data];
-    [d appendData:data];
-    
-    NSString *a = [[NSString alloc] initWithData:d encoding:NSASCIIStringEncoding];
-    
-    NSLog(@"Data: %@", a);
-}
-- (void)connection:(NSURLConnection*)connection didFailWithError:(NSError*)error
-{
-    //NSLog(@"URL Connection Failed!");
-    //currentConnection = nil;
-}*/
 
 @end
