@@ -47,8 +47,13 @@ static NSString *const kApiUserNameID = @"apiUserNameID";
 
 - (void)setUserName:(NSString *)userName
 {
-    if (userName != nil && [self.secureStorage saveKeychainValue:userName identifier:kApiUserNameID])
+    if (userName != nil && ![_userName isEqualToString:userName])
     {
+        // store to user defaults
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:userName forKey:kApiUserNameID];
+        [userDefaults synchronize];
+
         [_userName release];
         _userName = [userName copy];
     }
@@ -63,28 +68,39 @@ static NSString *const kApiUserNameID = @"apiUserNameID";
 {
     if (_userName == nil)
     {
-        NSData *userName = [self.secureStorage searchKeychainValue:kApiUserNameID];
-        if (userName != nil)
-        {
-            _userName = [[[NSString alloc] initWithData:userName encoding:NSUTF8StringEncoding] copy];
-        }
+        // read from user defaults
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        _userName = [[userDefaults objectForKey:kApiUserNameID] retain];
     }
     return _userName;
-
-/*    NSData *userName = [self.secureStorage searchKeychainValue:kApiUserNameID];
-    if (userName != nil)
-    {
-        return[[NSString alloc] initWithData:userName encoding:NSUTF8StringEncoding];
-    }
-    return nil;*/
 }
 
 - (void)setAccessToken:(NSString *)accessToken
 {
-    if (accessToken != nil && [self.secureStorage saveKeychainValue:accessToken identifier:kAuthenticationTokenID])
+    if (accessToken != nil)
     {
-        [_accessToken release];
-        _accessToken = [accessToken copy];
+        // remove old value from keychain if it exists there somehow
+        NSData *tokenData = [self.secureStorage searchKeychainValue:kAuthenticationTokenID];
+        if (tokenData != nil)
+        {
+            NSString *savedToken = [[NSString alloc] initWithData:tokenData encoding:NSUTF8StringEncoding];
+            if (savedToken != nil && savedToken != accessToken)
+            {
+                [self.secureStorage deleteKeychainValue:kAuthenticationTokenID];
+            }
+        }
+
+        // save to keychain
+        if ([self.secureStorage saveKeychainValue:accessToken identifier:kAuthenticationTokenID])
+        {
+            [_accessToken release];
+            _accessToken = [accessToken copy];
+        }
+        else
+        {
+            [_accessToken release];
+            _accessToken = nil;
+        }
     }
     else
     {
@@ -95,6 +111,7 @@ static NSString *const kApiUserNameID = @"apiUserNameID";
 
 - (NSString *)accessToken
 {
+    // read from keychain
     if (_accessToken == nil)
     {
         NSData *tokenData = [self.secureStorage searchKeychainValue:kAuthenticationTokenID];
@@ -104,20 +121,19 @@ static NSString *const kApiUserNameID = @"apiUserNameID";
         }
     }
     return _accessToken;
-
-    /*NSData *tokenData = [self.secureStorage searchKeychainValue:kAuthenticationTokenID];
-    if (tokenData != nil)
-    {
-        return[[NSString alloc] initWithData:tokenData encoding:NSUTF8StringEncoding];
-    }
-    return nil;*/
 }
 
 - (void)cleanData
 {
-    [self.secureStorage deleteKeychainValue:kApiUserNameID];
-    self.userName = nil;
+    // clean user defaults
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults removeObjectForKey:kApiUserNameID];
+    [userDefaults synchronize];
+
+    // clear keychain
     [self.secureStorage deleteKeychainValue:kAuthenticationTokenID];
+
+    self.userName = nil;
     self.accessToken = nil;
 }
 
