@@ -1,12 +1,12 @@
 //
-//  ProfileDataSource.m
+//  UserDataSource.m
 //  RestFullClient
 //
 //  Created by akyryl on 3/16/14.
 //  Copyright (c) 2014 Anatolii. All rights reserved.
 //
 
-#import "ProfileDataSource.h"
+#import "UserDataSource.h"
 
 #import "ApiAccessData.h"
 #import "HTTPClient.h"
@@ -22,9 +22,8 @@ static NSString *const kCreateProfileTemplate = @"{\"username\":\"%@\",\"email\"
 static NSString *const kUpdateProfileTemplate = @"{\"email\":\"%@\",\"last_name\":\"%@\",\"first_name\":\"%@\"}";
 
 
-@interface ProfileDataSource ()
+@interface UserDataSource ()
 
-@property (nonatomic, retain) NSURLConnection *connection;
 @property (nonatomic, retain) ApiAccessData *apiAccessData;
 @property (nonatomic, retain) HTTPClient *httpClient;
 @property (nonatomic, retain) UserDataJSONParser *parser;
@@ -32,7 +31,7 @@ static NSString *const kUpdateProfileTemplate = @"{\"email\":\"%@\",\"last_name\
 @end;
 
 
-@implementation ProfileDataSource
+@implementation UserDataSource
 
 - (id)init
 {
@@ -65,7 +64,7 @@ static NSString *const kUpdateProfileTemplate = @"{\"email\":\"%@\",\"last_name\
     return self.apiAccessData.userName;
 }
 
-- (void)authenticate:(id <ProfileDataSourceProtocol>) delegate
+- (void)authenticate:(id <UserDataSourceProtocol>) delegate
 {
     if (![self isAuthenticated])
     {
@@ -108,7 +107,7 @@ static NSString *const kUpdateProfileTemplate = @"{\"email\":\"%@\",\"last_name\
     }];
 }
 
-- (void)addProfile:(NSString *)userName profileData:(ProfileData *)profileData delegate:(id <ProfileDataSourceProtocol>) delegate
+- (void)addProfile:(NSString *)userName profileData:(ProfileData *)profileData delegate:(id <UserDataSourceProtocol>) delegate
 {
     NSString *parameters = [NSString stringWithFormat:kCreateProfileTemplate, userName, profileData.email, profileData.lastName, profileData.firstName];
     NSURLRequest *request = [self.httpClient requestWithMethod:POST
@@ -147,7 +146,7 @@ static NSString *const kUpdateProfileTemplate = @"{\"email\":\"%@\",\"last_name\
     }];
 }
 
-- (void)updateProfile:(ProfileData *)profileData delegate:(id <ProfileDataSourceProtocol>) delegate
+- (void)updateProfile:(ProfileData *)profileData delegate:(id <UserDataSourceProtocol>) delegate
 {
     NSString *parameters = [NSString stringWithFormat:kUpdateProfileTemplate, profileData.email, profileData.lastName, profileData.firstName];
     NSDictionary *headerParameters = @{kApiAccessTokenKey:self.apiAccessData.accessToken,
@@ -188,7 +187,7 @@ static NSString *const kUpdateProfileTemplate = @"{\"email\":\"%@\",\"last_name\
     }];
 }
 
-- (void)deleteProfile:(id <ProfileDataSourceProtocol>) delegate
+- (void)deleteProfile:(id <UserDataSourceProtocol>) delegate
 {
     NSDictionary *headerParameters = @{kApiAccessTokenKey:self.apiAccessData.accessToken,
                                        kApiUserNameKey:self.apiAccessData.userName};

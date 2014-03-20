@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@class ProfileDataSource;
+@class UserDataSource;
 
 @interface UserHomeViewController : UIViewController
 {
@@ -17,6 +17,6 @@
     IBOutlet UIButton *editProfileButton;
 }
 
-@property (nonatomic, assign) ProfileDataSource *profileDataSource;
+@property (nonatomic, assign) UserDataSource *profileDataSource;
 
 @end

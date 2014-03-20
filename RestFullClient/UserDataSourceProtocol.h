@@ -1,5 +1,5 @@
 //
-//  ProfileDataSourceProtocol.h
+//  UserDataSourceProtocol.h
 //  RestFullClient
 //
 //  Created by akyryl on 3/16/14.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol ProfileDataSourceProtocol <NSObject>
+@protocol UserDataSourceProtocol <NSObject>
 
 @optional
 - (void)authenticationSuccessful;

@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-#import "ProfileDataSourceProtocol.h"
+#import "UserDataSourceProtocol.h"
 
 
-@class ProfileDataSource;
+@class UserDataSource;
 
-@interface RegistrationViewController : UIViewController <ProfileDataSourceProtocol>
+@interface RegistrationViewController : UIViewController <UserDataSourceProtocol>
 {
     IBOutlet UIActivityIndicatorView *activityIndicator;
     IBOutlet UIButton *registerButton;
@@ -23,7 +23,7 @@
     IBOutlet UITextField *emailTextField;
 }
 
-@property (nonatomic, assign) ProfileDataSource *profileDataSource;
+@property (nonatomic, assign) UserDataSource *profileDataSource;
 
 - (IBAction)registrationButtonTapped:(UIButton *)button;
 - (IBAction)cancelButtonTapped:(UIButton *)button;

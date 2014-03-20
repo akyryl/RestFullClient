@@ -6,12 +6,12 @@
 //  Copyright (c) 2014 Anatolii. All rights reserved.
 //
 
-#import "ProfileDataSourceProtocol.h"
+#import "UserDataSourceProtocol.h"
 
 
-@class ProfileDataSource;
+@class UserDataSource;
 
-@interface EditProfileViewController : UIViewController <ProfileDataSourceProtocol>
+@interface EditProfileViewController : UIViewController <UserDataSourceProtocol>
 {
     IBOutlet UIActivityIndicatorView *activityIndicator;
     IBOutlet UITextField *firstNameTextField;
@@ -22,7 +22,7 @@
     IBOutlet UIButton *removeProfileButton;
 }
 
-@property (nonatomic, assign) ProfileDataSource *profileDataSource;
+@property (nonatomic, assign) UserDataSource *profileDataSource;
 
 - (IBAction)saveButtonTapped:(UIButton *)button;
 - (IBAction)removeButtonTapped:(UIButton *)button;

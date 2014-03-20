@@ -1,5 +1,5 @@
 //
-//  ProfileDataJSONParser.h
+//  UserDataJSONParser.h
 //  RestFullClient
 //
 //  Created by akyryl on 3/16/14.

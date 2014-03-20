@@ -1,5 +1,5 @@
 //
-//  ProfileDataJSONParser.m
+//  UserDataJSONParser.m
 //  RestFullClient
 //
 //  Created by akyryl on 3/16/14.
@@ -13,6 +13,15 @@
 
 
 @implementation UserDataJSONParser
+
+
+- (void)dealloc
+{
+    [_responseErrorString release];
+    [_parsingError release];
+    
+    [super dealloc];
+}
 
 - (ProfileData *)parse:(NSData *)data
 {
@@ -42,7 +51,7 @@
     NSString *accessToken = [profileDictionary valueForKey:@"access_token"];
     if (userName != nil && accessToken != nil)
     {
-        apiData = [[ApiAccessData alloc] init];
+        apiData = [[[ApiAccessData alloc] init] autorelease];
         apiData.userName = userName;
         apiData.accessToken = accessToken;
     }

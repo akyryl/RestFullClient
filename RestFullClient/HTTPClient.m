@@ -22,9 +22,16 @@
     self = [super init];
     if (self != nil)
     {
-        self.baseURL = baseURL;
+        _baseURL = [baseURL retain];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [_baseURL release];
+    
+    [super dealloc];
 }
 
 - (NSURLRequest *)requestWithMethod:(HTTPMethod)method
@@ -33,7 +40,7 @@
                    headerParameters:(NSDictionary *)headerParameters;
 {
     NSURL *url = [NSURL URLWithString:path relativeToURL:self.baseURL];
-	NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] initWithURL:url] autorelease];
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     
     NSString *httpMethod = [self stringFromHTTPMethod:method];
     if (httpMethod != nil)
@@ -57,28 +64,30 @@
             [request setValue:[headerParameters valueForKey:key] forHTTPHeaderField:key];
         }
     }
-
-    return [[request copy] autorelease];
+    NSURLRequest *immutableRequest = [[request copy] autorelease];
+    [request release];
+    return immutableRequest;
 }
 
 - (NSString *)stringFromHTTPMethod:(HTTPMethod)method
 {
     NSString *value = nil;
-    if (method == GET)
+    switch (method)
     {
-        value = @"GET";
-    }
-    else if (method == POST)
-    {
-        value = @"POST";
-    }
-    else if (method == PUT)
-    {
-        value = @"PUT";
-    }
-    else if (method == DELETE)
-    {
-        value = @"DELETE";
+        case GET:
+            value = @"GET";
+            break;
+        case POST:
+            value = @"POST";
+            break;
+        case PUT:
+            value = @"PUT";
+            break;
+        case DELETE:
+            value = @"DELETE";
+            break;
+        default:
+            break;
     }
     return value;
 }

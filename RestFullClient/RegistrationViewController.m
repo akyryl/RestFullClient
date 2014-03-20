@@ -9,7 +9,7 @@
 #import "RegistrationViewController.h"
 
 #import "ProfileData.h"
-#import "ProfileDataSource.h"
+#import "UserDataSource.h"
 
 
 @interface RegistrationViewController ()

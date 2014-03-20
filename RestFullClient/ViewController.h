@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-#import "ProfileDataSourceProtocol.h"
+#import "UserDataSourceProtocol.h"
 
-@interface ViewController : UIViewController <ProfileDataSourceProtocol>
+@interface ViewController : UIViewController <UserDataSourceProtocol>
 {
     IBOutlet UIActivityIndicatorView *activityIndicator;
     IBOutlet UILabel *greetingsLable;

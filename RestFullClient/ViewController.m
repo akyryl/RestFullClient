@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 
-#import "ProfileDataSource.h"
+#import "UserDataSource.h"
 #import "ProfileData.h"
 #import "RegistrationViewController.h"
 #import "UserHomeViewController.h"
@@ -19,7 +19,7 @@ static NSString *const kGreetingsExistingUserText = @"Hi %@!";
 
 @interface ViewController ()
 
-@property (nonatomic, retain) ProfileDataSource *profileDataSource;
+@property (nonatomic, retain) UserDataSource *profileDataSource;
 
 @end
 
@@ -37,7 +37,7 @@ static NSString *const kGreetingsExistingUserText = @"Hi %@!";
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    _profileDataSource = [[ProfileDataSource alloc] init];
+    _profileDataSource = [[UserDataSource alloc] init];
     [_profileDataSource authenticate:self];
 }
 
