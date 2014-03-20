@@ -11,14 +11,10 @@
 #import <Security/Security.h>
 
 
-@interface SecureStorage ()
-
-@property (nonatomic, copy) NSString *serviceName;
-
-@end
-
-
 @implementation SecureStorage
+{
+    NSString *_serviceName;
+}
 
 - (id)initWithServiceName:(NSString *)serviceName
 {
@@ -64,7 +60,7 @@
     NSData *encodedIdentifier = [identifier dataUsingEncoding:NSUTF8StringEncoding];
     [dict setObject:encodedIdentifier forKey:(id)kSecAttrGeneric];
     [dict setObject:encodedIdentifier forKey:(id)kSecAttrAccount];
-    [dict setObject:self.serviceName forKey:(id)kSecAttrService];
+    [dict setObject:_serviceName forKey:(id)kSecAttrService];
 }
 
 - (void)deleteKeychainValue:(NSString *)identifier

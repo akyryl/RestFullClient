@@ -9,13 +9,10 @@
 #import "HTTPClient.h"
 
 
-@interface HTTPClient ()
-
-@property (nonatomic, retain) NSURL *baseURL;
-
-@end
-
 @implementation HTTPClient
+{
+    NSURL *_baseURL;
+}
 
 - (id)initBaseURL:(NSURL *)baseURL
 {
@@ -39,7 +36,7 @@
                          parameters:(NSString *)parameters
                    headerParameters:(NSDictionary *)headerParameters;
 {
-    NSURL *url = [NSURL URLWithString:path relativeToURL:self.baseURL];
+    NSURL *url = [NSURL URLWithString:path relativeToURL:_baseURL];
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     
     NSString *httpMethod = [self stringFromHTTPMethod:method];

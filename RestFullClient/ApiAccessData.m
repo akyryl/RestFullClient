@@ -15,13 +15,10 @@ static NSString *const kServiceName = @"RESTFullClient";
 static NSString *const kAuthenticationTokenID = @"authTokenID";
 static NSString *const kApiUserNameID = @"apiUserNameID";
 
-@interface ApiAccessData ()
-
-@property (nonatomic, retain) SecureStorage *secureStorage;
-
-@end
-
 @implementation ApiAccessData
+{
+    SecureStorage *_secureStorage;
+}
 
 @synthesize userName =_userName;
 @synthesize accessToken =_accessToken;
@@ -80,18 +77,18 @@ static NSString *const kApiUserNameID = @"apiUserNameID";
     if (accessToken != nil)
     {
         // remove old value from keychain if it exists there somehow
-        NSData *tokenData = [self.secureStorage searchKeychainValue:kAuthenticationTokenID];
+        NSData *tokenData = [_secureStorage searchKeychainValue:kAuthenticationTokenID];
         if (tokenData != nil)
         {
             NSString *savedToken = [[NSString alloc] initWithData:tokenData encoding:NSUTF8StringEncoding];
             if (savedToken != nil && savedToken != accessToken)
             {
-                [self.secureStorage deleteKeychainValue:kAuthenticationTokenID];
+                [_secureStorage deleteKeychainValue:kAuthenticationTokenID];
             }
         }
 
         // save to keychain
-        if ([self.secureStorage saveKeychainValue:accessToken identifier:kAuthenticationTokenID])
+        if ([_secureStorage saveKeychainValue:accessToken identifier:kAuthenticationTokenID])
         {
             [_accessToken release];
             _accessToken = [accessToken copy];
@@ -114,7 +111,7 @@ static NSString *const kApiUserNameID = @"apiUserNameID";
     // read from keychain
     if (_accessToken == nil)
     {
-        NSData *tokenData = [self.secureStorage searchKeychainValue:kAuthenticationTokenID];
+        NSData *tokenData = [_secureStorage searchKeychainValue:kAuthenticationTokenID];
         if (tokenData != nil)
         {
             _accessToken = [[[NSString alloc] initWithData:tokenData encoding:NSUTF8StringEncoding] copy];
@@ -131,7 +128,7 @@ static NSString *const kApiUserNameID = @"apiUserNameID";
     [userDefaults synchronize];
 
     // clear keychain
-    [self.secureStorage deleteKeychainValue:kAuthenticationTokenID];
+    [_secureStorage deleteKeychainValue:kAuthenticationTokenID];
 
     self.userName = nil;
     self.accessToken = nil;
