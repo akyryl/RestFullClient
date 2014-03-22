@@ -85,6 +85,7 @@ static NSString *const kApiUserNameID = @"apiUserNameID";
             {
                 [_secureStorage deleteKeychainValue:kAuthenticationTokenID];
             }
+            [savedToken release];
         }
 
         // save to keychain
@@ -114,7 +115,9 @@ static NSString *const kApiUserNameID = @"apiUserNameID";
         NSData *tokenData = [_secureStorage searchKeychainValue:kAuthenticationTokenID];
         if (tokenData != nil)
         {
-            _accessToken = [[[NSString alloc] initWithData:tokenData encoding:NSUTF8StringEncoding] copy];
+            NSString *str = [[NSString alloc] initWithData:tokenData encoding:NSUTF8StringEncoding];
+            _accessToken = [str copy];
+            [str release];
         }
     }
     return _accessToken;

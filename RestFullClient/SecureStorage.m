@@ -50,7 +50,7 @@
     }
     
     [searchDictionary release];
-    return result;
+    return [result autorelease];
 }
 
 - (void)prepareSearchDictionary:(NSMutableDictionary *)dict identifier:(NSString *)identifier

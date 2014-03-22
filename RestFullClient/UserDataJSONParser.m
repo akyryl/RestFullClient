@@ -73,7 +73,7 @@
     NSString *errorValue = [dataDictionary valueForKey:@"error"];
     if (errorValue != nil)
     {
-        self.responseErrorString = [errorValue retain];
+        self.responseErrorString = errorValue;
         return nil;
     }
     NSDictionary *profileDictionary = [dataDictionary valueForKey:@"user"];

@@ -10,6 +10,15 @@
 
 @implementation ProfileData
 
+- (void)dealloc
+{
+    [_firstName release];
+    [_lastName release];
+    [_email release];
+    
+    [super dealloc];
+}
+
 - (NSString *)accessToken
 {
     // TODO: read access token

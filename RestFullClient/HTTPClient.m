@@ -48,7 +48,7 @@
     if (parameters != nil)
     {
         NSData *requestData = [NSData dataWithBytes:[parameters UTF8String] length:[parameters length]];
-        [request setValue:[NSString stringWithFormat:@"%d", [requestData length]] forHTTPHeaderField:@"Content-Length"];
+        [request setValue:[NSString stringWithFormat:@"%d", ((int)[requestData length])] forHTTPHeaderField:@"Content-Length"];
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
 
         [request setHTTPBody:requestData];

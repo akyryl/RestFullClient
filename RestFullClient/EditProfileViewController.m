@@ -84,6 +84,7 @@
     profileData.email = emailTextField.text;
 
     [self.profileDataSource updateProfile:profileData delegate:self];
+    [profileData release];
 }
 
 - (IBAction)removeButtonTapped:(UIButton *)button
