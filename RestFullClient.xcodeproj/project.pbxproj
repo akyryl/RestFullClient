@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E95177018E0BEEC002F3F09 /* UIAlertView+Custom.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E95176F18E0BEEC002F3F09 /* UIAlertView+Custom.m */; };
 		3EBAEB3B18D4ABFB00B3C9F1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EBAEB3A18D4ABFB00B3C9F1 /* Foundation.framework */; };
 		3EBAEB3D18D4ABFB00B3C9F1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EBAEB3C18D4ABFB00B3C9F1 /* CoreGraphics.framework */; };
 		3EBAEB3F18D4ABFB00B3C9F1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EBAEB3E18D4ABFB00B3C9F1 /* UIKit.framework */; };
@@ -43,6 +44,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3E95176E18E0BEEC002F3F09 /* UIAlertView+Custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Custom.h"; sourceTree = "<group>"; };
+		3E95176F18E0BEEC002F3F09 /* UIAlertView+Custom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Custom.m"; sourceTree = "<group>"; };
 		3EBAEB3718D4ABFB00B3C9F1 /* RestFullClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RestFullClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EBAEB3A18D4ABFB00B3C9F1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3EBAEB3C18D4ABFB00B3C9F1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -217,6 +220,8 @@
 				3EBAEB7F18D5957D00B3C9F1 /* HTTPClient.m */,
 				3EBAEB9E18D82F6700B3C9F1 /* SecureStorage.h */,
 				3EBAEB9F18D82F6700B3C9F1 /* SecureStorage.m */,
+				3E95176E18E0BEEC002F3F09 /* UIAlertView+Custom.h */,
+				3E95176F18E0BEEC002F3F09 /* UIAlertView+Custom.m */,
 				3EBAEB8818D5CC2200B3C9F1 /* UserDataJSONParser.h */,
 				3EBAEB8918D5CC2200B3C9F1 /* UserDataJSONParser.m */,
 			);
@@ -328,6 +333,7 @@
 				3EBAEB7A18D58C7E00B3C9F1 /* ProfileData.m in Sources */,
 				3EBAEB7118D4ACB300B3C9F1 /* RegistrationViewController.m in Sources */,
 				3EBAEB4B18D4ABFB00B3C9F1 /* AppDelegate.m in Sources */,
+				3E95177018E0BEEC002F3F09 /* UIAlertView+Custom.m in Sources */,
 				3EBAEB8A18D5CC2200B3C9F1 /* UserDataJSONParser.m in Sources */,
 				3EBAEB7418D4ACEB00B3C9F1 /* UserHomeViewController.m in Sources */,
 				3EBAEBA018D82F6700B3C9F1 /* SecureStorage.m in Sources */,

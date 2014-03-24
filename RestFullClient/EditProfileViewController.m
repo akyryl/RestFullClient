@@ -10,6 +10,7 @@
 
 #import "ProfileData.h"
 #import "UserDataSource.h"
+#import "UIAlertView+Custom.h"
 
 
 @interface EditProfileViewController ()
@@ -89,14 +90,8 @@
 
 - (IBAction)removeButtonTapped:(UIButton *)button
 {
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Confirm deletion"
-                                                    message:@"Do you really want to delete your profile?"
-                                                   delegate:self
-                                          cancelButtonTitle:@"No"
-                                          otherButtonTitles:@"Yes", nil];
+    UIAlertView *alert = [UIAlertView confirmDeletion:self];
     [alert show];
-    [alert release];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -127,8 +122,9 @@
 - (void)requestFailed
 {
     [self updateControlsState:NO];
-
-    // TODO: Add user message here
+    
+    UIAlertView *alert = [UIAlertView connectionError];
+    [alert show];
 }
 
 @end

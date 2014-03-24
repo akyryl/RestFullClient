@@ -8,24 +8,25 @@
 
 #import "UIAlertView+Custom.h"
 
-@implementation UIAlertView_Custom
+@implementation UIAlertView (Custom)
 
-- (id)initWithFrame:(CGRect)frame
++ (UIAlertView *)connectionError
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
+    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Request error!"
+                                                     message:@"Can't connect to the server"
+                                                    delegate:self
+                                           cancelButtonTitle:@"OK"otherButtonTitles:nil, nil] autorelease];
+    return alert;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
++ (UIAlertView *)confirmDeletion:(id)delegate
 {
-    // Drawing code
+    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Confirm deletion"
+                                                    message:@"Do you really want to delete your profile?"
+                                                   delegate:delegate
+                                          cancelButtonTitle:@"No"
+                                          otherButtonTitles:@"Yes", nil] autorelease];
+    return alert;
 }
-*/
 
 @end

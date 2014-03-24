@@ -164,7 +164,6 @@ static NSString *const kUpdateProfileTemplate = @"{\"email\":\"%@\",\"last_name\
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
     {
-        // TODO: check on other kinds of error
         if ([data length] > 0 && error == nil)
         {
             ProfileData *updatedProfileData = [_parser parse:data];
@@ -202,7 +201,6 @@ static NSString *const kUpdateProfileTemplate = @"{\"email\":\"%@\",\"last_name\
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
      {
-         // TODO: check on other kinds of error
          if ([data length] > 0 && error == nil)
          {
              self.profileData = nil;

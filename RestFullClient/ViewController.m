@@ -12,6 +12,7 @@
 #import "ProfileData.h"
 #import "RegistrationViewController.h"
 #import "UserHomeViewController.h"
+#import "UIAlertView+Custom.h"
 
 
 static NSString *const kGreetingsNewUserText = @"Hi New User!";
@@ -99,7 +100,8 @@ static NSString *const kGreetingsExistingUserText = @"Hi %@!";
 {
     [self updateControls:NO];
     
-    // TODO: Add user message here
+    UIAlertView *alert = [UIAlertView connectionError];
+    [alert show];
 }
 
 @end

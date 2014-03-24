@@ -10,6 +10,7 @@
 
 #import "ProfileData.h"
 #import "UserDataSource.h"
+#import "UIAlertView+Custom.h"
 
 
 @interface RegistrationViewController ()
@@ -85,7 +86,8 @@
 {
     activityIndicator.hidden = YES;
 
-    // TODO: Add user message here
+    UIAlertView *alert = [UIAlertView connectionError];
+    [alert show];
 }
 
 @end

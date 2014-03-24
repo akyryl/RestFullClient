@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIAlertView_Custom : UIAlertView
+@interface UIAlertView (Custom)
+
++ (UIAlertView *)connectionError;
++ (UIAlertView *)confirmDeletion:(id)delegate;
 
 @end
