@@ -77,15 +77,23 @@
 
 - (IBAction)saveButtonTapped:(UIButton *)button
 {
-    [self updateControlsState:YES];
-    
-    ProfileData *profileData = [[ProfileData alloc] init];
-    profileData.firstName = firstNameTextField.text;
-    profileData.lastName = lastNameTextField.text;
-    profileData.email = emailTextField.text;
-
-    [self.profileDataSource updateProfile:profileData delegate:self];
-    [profileData release];
+    if (![self isEnteredDataValid])
+    {
+        UIAlertView *alert = [UIAlertView invalidDataEntered];
+        [alert show];
+    }
+    else
+    {
+        [self updateControlsState:YES];
+        
+        ProfileData *profileData = [[ProfileData alloc] init];
+        profileData.firstName = firstNameTextField.text;
+        profileData.lastName = lastNameTextField.text;
+        profileData.email = emailTextField.text;
+        
+        [self.profileDataSource updateProfile:profileData delegate:self];
+        [profileData release];
+    }
 }
 
 - (IBAction)removeButtonTapped:(UIButton *)button
@@ -102,6 +110,14 @@
         
         [self.profileDataSource deleteProfile:self];
     }
+}
+
+- (BOOL)isEnteredDataValid
+{
+    return [firstNameTextField.text length] != 0
+        && [lastNameTextField.text length] != 0
+        // TODO: add email validation
+        && [emailTextField.text length] != 0;
 }
 
 #pragma mark -

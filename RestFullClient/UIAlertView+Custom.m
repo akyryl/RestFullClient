@@ -29,4 +29,13 @@
     return alert;
 }
 
++ (UIAlertView *)invalidDataEntered
+{
+    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Invalid Data!"
+                                                     message:@"Please, enter valid data"
+                                                    delegate:self
+                                           cancelButtonTitle:@"OK"otherButtonTitles:nil, nil] autorelease];
+    return alert;
+}
+
 @end

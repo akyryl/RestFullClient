@@ -68,14 +68,10 @@ static NSString *const kUpdateProfileTemplate = @"{\"email\":\"%@\",\"last_name\
 
 - (void)authenticate:(id <UserDataSourceProtocol>) delegate
 {
-    if (![self isAuthenticated])
-    {
-        [delegate authenticationFailed];
-        return;
-    }
-
-    NSDictionary *headerParameters = @{kApiAccessTokenKey:_apiAccessData.accessToken,
-                                       kApiUserNameKey:_apiAccessData.userName};
+    NSString *accessToken = _apiAccessData.accessToken;
+    NSString *userName = _apiAccessData.userName;
+    NSDictionary *headerParameters = @{kApiAccessTokenKey:accessToken != nil ? accessToken : @"",
+                                       kApiUserNameKey:userName != nil ? userName : @""};
     NSURLRequest *request = [_httpClient requestWithMethod:GET
                                                           path:kBaseURL
                                                     parameters:nil
@@ -99,7 +95,7 @@ static NSString *const kUpdateProfileTemplate = @"{\"email\":\"%@\",\"last_name\
             }
             else
             {
-                [delegate requestFailed];
+                [delegate authenticationFailed];
             }
         }
         else

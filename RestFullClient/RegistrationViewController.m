@@ -57,20 +57,37 @@
 
 - (IBAction)registrationButtonTapped:(UIButton *)button
 {
-    activityIndicator.hidden = NO;
+    if (![self isEnteredDataValid])
+    {
+        UIAlertView *alert = [UIAlertView invalidDataEntered];
+        [alert show];
+    }
+    else
+    {
+        activityIndicator.hidden = NO;
 
-    ProfileData *profileData = [[ProfileData alloc] init];
-    profileData.firstName = firstNameTextField.text;
-    profileData.lastName = lastNameTextField.text;
-    profileData.email = emailTextField.text;
-    
-    [self.profileDataSource addProfile:userNameTextField.text profileData:profileData delegate:self];
-    [profileData release];
+        ProfileData *profileData = [[ProfileData alloc] init];
+        profileData.firstName = firstNameTextField.text;
+        profileData.lastName = lastNameTextField.text;
+        profileData.email = emailTextField.text;
+
+        [self.profileDataSource addProfile:userNameTextField.text profileData:profileData delegate:self];
+        [profileData release];
+    }
 }
 
 - (IBAction)cancelButtonTapped:(UIButton *)button
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (BOOL)isEnteredDataValid
+{
+    return userNameTextField.text != 0
+        && [firstNameTextField.text length] != 0
+        && [lastNameTextField.text length] != 0
+        // TODO: add email validation
+        && [emailTextField.text length] != 0;
 }
 
 #pragma mark -

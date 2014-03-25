@@ -12,5 +12,6 @@
 
 + (UIAlertView *)connectionError;
 + (UIAlertView *)confirmDeletion:(id)delegate;
++ (UIAlertView *)invalidDataEntered;
 
 @end
