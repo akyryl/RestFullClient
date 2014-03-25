@@ -19,17 +19,6 @@
     [super dealloc];
 }
 
-- (NSString *)accessToken
-{
-    // TODO: read access token
-    return @"";
-}
-
-- (void)setAccessToken:(NSString *)accessToken
-{
-    // TODO: save access token
-}
-
 - (void)updateWithData:(ProfileData *)profileData
 {
     if (![profileData.firstName isEqualToString:@"(null)"])
