@@ -17,6 +17,7 @@
 
 static NSString *const kGreetingsNewUserText = @"Hi New User!";
 static NSString *const kGreetingsExistingUserText = @"Hi %@!";
+static NSString *const kConnectionErrorMessage = @"Connection Error";
 
 @interface ViewController ()
 
@@ -98,10 +99,9 @@ static NSString *const kGreetingsExistingUserText = @"Hi %@!";
 
 - (void)requestFailed
 {
-    [self updateControls:NO];
-    
-    UIAlertView *alert = [UIAlertView connectionError];
-    [alert show];
+    goToProfileButton.hidden = YES;
+    goToRegistrationButton.hidden = YES;
+    greetingsLable.text = kConnectionErrorMessage;
 }
 
 @end
